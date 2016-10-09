@@ -5823,7 +5823,6 @@ build-shell-deps: $(ALL_SHELL_DEPS_DIRS)
 	$(verbose) for dep in $(ALL_SHELL_DEPS_DIRS) ; do $(MAKE) -C $$dep ; done
 
 shell: build-shell-deps
-	@echo erl $(SHELL_PATH) $(SHELL_OPTS)
 	$(gen_verbose) erl $(SHELL_PATH) $(SHELL_OPTS)
 
 # Copyright (c) 2015, Loïc Hoguin <essen@ninenines.eu>
