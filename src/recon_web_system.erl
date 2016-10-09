@@ -47,14 +47,18 @@ system_to_prop({multi_scheduling_blockers, Blockers}) ->
 system_to_prop({scheduler_bindings, Bindings}) ->
     [{scheduler_bindings, tuple_to_list(Bindings)}];
 system_to_prop({Key, Value}) ->
-    case io_lib:printable_latin1_list(Value) of
-        true -> [{Key, list_to_binary(Value)}];
-        false-> [{Key, Value}]
+    % case io_lib:printable_latin1_list(Value) of
+    %     true -> [{Key, list_to_binary(Value)}];
+    %     false-> [{Key, Value}]
+    % end.
+    case io_lib:printable_unicode_list(Value) of
+        false-> [{Key, Value}];
+        true -> [{Key, list_to_binary(Value)}]
     end.
 to_binary(Value) when is_atom(Value) ->
     list_to_binary(atom_to_list(Value));
 to_binary(Value)when is_integer(Value) ->
-    integer_to_binary(Value).
+    list_to_binary(integer_to_list(Value)).
 
 pid_to_binary(Pid) ->
     list_to_binary(pid_to_list(Pid)).
